@@ -1,0 +1,188 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	struct node *next;
+};
+
+
+int n,i=0,count=0;
+
+
+struct node *newnode,*head=0,*temp;
+
+
+void insertbegin(){
+struct node *newnode,*temp;
+newnode=(struct node*)malloc (sizeof(struct node));
+printf("\nEnter the data to store at begin:");
+scanf("%d",&newnode->data);
+newnode->next=head;
+head=newnode;
+count++;
+}
+
+
+
+void insertend(){
+struct node *newnode,*temp;
+newnode=(struct node*)malloc (sizeof(struct node));
+printf("Enter the data to store at end:");
+scanf("%d",&newnode->data);
+newnode->next=0;
+if (head==0){
+	head=newnode;
+	temp=newnode;
+}
+  else{
+        temp=head;
+        while(temp->next!=0){
+            temp = temp->next;
+        }
+        temp->next = newnode; 
+    }
+count++;
+}
+
+
+void insertmiddle(){
+	struct node *temp,*newnode;
+	int position,i=1;
+	printf("Enter the position to add an element:");
+	scanf("%d",&position);
+	if(position>count){
+		printf("Enter a valid position");
+	}
+	else{
+		temp=head;
+		while(i<position-1){
+			temp=temp->next;
+			i++;
+		}newnode=(struct node*)malloc (sizeof(struct node));
+		printf("Enter the data to store at end:");
+		scanf("%d",&newnode->data);
+		newnode->next=temp->next;
+		temp->next=newnode;
+		count++;
+	}
+	
+}
+
+
+
+
+void removefront(){
+	
+	if (head==0){
+	printf("\nThe list is empty");
+}
+	else{
+	
+	temp=head;
+	head=head->next;
+	free(temp);
+	printf("\nFront element is succesfully removed!");
+	count--;
+}
+}
+
+void removeend(){
+	
+	temp=head;
+	int i=1;
+	if (head==0){
+		printf("\nThe list is empty");
+	}
+	else{
+		while(i<count-1){
+			if(temp->next!=0){
+				temp=temp->next;
+			}
+			i++;	
+		temp->next=0;
+		printf("\nThe last element is succesfully removed ");
+		}
+		count--;
+	}
+}
+	
+void removemiddle(){
+    
+    struct node *newnode,*temp,*prev;
+    int position,i=1;
+    temp = head;
+    if(head == 0){
+        printf("The Link List is Empty!\n");
+    }
+    printf("Enter the Position:\n");
+    scanf("%d",&position);
+    if(position > count){
+        printf("Invalid Position!\n");
+    }
+    else{
+        while(i<position-1)
+        if(temp->next!= 0){
+            temp = temp->next;
+            i++;
+        }
+        prev = temp->next;
+        temp->next = prev->next;
+        free(prev);
+        printf("The specific Element is removed!\n");
+        count --;
+
+    }
+
+}
+	
+
+void display(){
+	struct node *temp;
+	temp=head;
+
+	if (temp==0){
+		printf("\nThe list is empty\n");
+	}
+	
+	while(temp!=0){
+	
+		printf("%d\t",temp->data);
+		temp=temp->next;
+	}
+}
+
+void main(){
+int choice;
+do{
+printf("\nEnter 1 to add an element at front:\nEnter 2 to add an element at rear:\nEnter 3 to add an  element at middle in the list:\nEnter 4 to remove an element at front:\nEnter 5 to remove an  elements at end:\nEnter 6 to remove at specific position :");
+printf("\nEnter 7 to display the elemnets int the list:");
+scanf("%d",&choice);
+switch(choice){
+	case(1):
+		insertbegin();
+		break;
+	case(2):
+		insertend();
+		break;
+	case(3):
+		insertmiddle();
+		break;
+	case (4):
+		removefront();
+		break;
+	case(5):
+		 removeend();
+		break;
+	case (6):
+		removemiddle();
+		break;
+	case (7):
+		display();
+		break;
+	default:
+		printf("Enter the corect choice!");
+		
+}}while(choice!=0);
+printf("The program was ended!");
+}
