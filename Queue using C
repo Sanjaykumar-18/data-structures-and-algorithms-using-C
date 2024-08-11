@@ -1,0 +1,84 @@
+#include<stdio.h>
+
+#define SIZE 5
+
+int queue[SIZE], front = 0, rear = -1, x;
+
+void enqueue() {
+    if (rear == SIZE - 1) {
+        printf("\nThe queue is full. We cannot add more elements.\n");
+    } else {
+        printf("\nEnter the element to add into the queue: ");
+        scanf("%d", &x);
+        rear++;
+        queue[rear] = x;
+        printf("The element added is %d\n", x);
+    }
+}
+
+int isempty() {
+    return front > rear;
+}
+
+void dequeue() {
+    if (isempty()) {
+        printf("\n\n****THE QUEUE IS EMPTY****\n");
+    } else {
+        printf("\nThe element removed is %d\n", queue[front]);
+        front++;
+    }
+}
+
+void display() {
+    if (!isempty()) {
+        printf("\nQueue elements are: ");
+        for (int i = front; i <= rear; i++) {
+            printf("%d \t", queue[i]);
+        }
+        printf("\n");
+    } else {
+        printf("\n\n****QUEUE IS EMPTY****\n");
+    }
+}
+
+int isfull() {
+    return rear == SIZE - 1;
+}
+
+int main() {
+    int choice;
+
+    while (1) {
+        printf("\n\n****Select an option****");
+        printf("\n1. Add");
+        printf("\n2. Remove");
+        printf("\n3. Display");
+        printf("\n4. Check if full");
+        printf("\n5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                if (isfull()) {
+                    printf("\n\n****QUEUE IS FULL****\n");
+                } else {
+                    printf("\n****QUEUE IS NOT FULL****\n");
+                }
+                break;
+            case 5:
+                return 0;
+            default:
+                printf("\n\n****ENTER A VALID INPUT****\n");
+        }
+    }
+}
